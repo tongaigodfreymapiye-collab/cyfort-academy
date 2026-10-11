@@ -1,0 +1,8 @@
+CYFORT ACADEMY QR VERIFICATION FIX
+
+Upload index.html, app.js, cyfort-logo.png, and the assets folder to the root of the existing cyfort-academy GitHub repository.
+IMPORTANT: KEEP your existing LIVE config.js. DO NOT replace it with the starter placeholder config.js.
+Do not upload apps-script/Code.gs from older packages; keep the working backend.
+The QR link now opens a dedicated certificate verification screen instead of the enrolment homepage.
+Expected test certificate result: Certificate Not Found or Invalid (provided backend connects).
+If Verification Unavailable is displayed, inspect live config.js and Apps Script deployment.

@@ -17,19 +17,30 @@ $('progress').onclick=async()=>{if(!auth()){message('progressStatus','Please sig
 $('verifyBtn').onclick=async()=>{message('verifyStatus','Checking certificate…');try{const r=await api('verify',{certificateId:$('certificateId').value.trim()});$('verifyStatus').dataset.result=r.valid?'valid':'invalid';message('verifyStatus',r.valid?`VALID — ${r.name}\n${r.title}\nIssued: ${r.issued}`:'No valid certificate found for this ID.')}catch(err){message('verifyStatus',err.message)}};
 const certParam=new URLSearchParams(location.search).get('certificate');
 let qrVerificationStarted=false;
+const qrStatus=(text,result)=>{const el=$('qrStatus');if(!el)return;el.textContent=text;if(result)el.dataset.result=result;};
+if(certParam!==null){
+  document.body.classList.add('qr-mode');
+  qrStatus('Connecting to the CyFort Academy verification service…');
+  if($('certificateId'))$('certificateId').value=certParam.trim();
+}
 async function verifyFromQR(){
-  if(!certParam||!bridgeReady||qrVerificationStarted)return;
+  if(certParam===null||!bridgeReady||qrVerificationStarted)return;
   qrVerificationStarted=true;
   const id=certParam.trim();
-  $('certificateId').value=id;
-  const status=$('verifyStatus');
-  status.scrollIntoView({behavior:'smooth',block:'center'});
-  message('verifyStatus','Verifying certificate against CyFort Academy records…');
+  if(!id){qrStatus('INVALID LINK\n\nNo certificate ID was provided.','invalid');return;}
+  qrStatus('Checking certificate ID: '+id+'\n\nPlease wait…');
   try{
     const r=await api('verify',{certificateId:id});
-    status.dataset.result=r.valid?'valid':'invalid';
-    message('verifyStatus',r.valid?`VERIFIED CERTIFICATE\nHolder: ${r.name}\nCertification: ${r.title}\nIssued: ${r.issued}\nCertificate ID: ${id}`:`CERTIFICATE NOT FOUND OR INVALID\nCertificate ID: ${id}\nCyFort Academy has no valid record for this certificate.`);
-  }catch(err){status.dataset.result='error';message('verifyStatus','Verification unavailable: '+err.message)}
+    if(r&&r.valid===true){
+      qrStatus('✓ VERIFIED CERTIFICATE\n\nHolder: '+(r.name||'Not provided')+'\nCertification: '+(r.title||'CCRA-GP')+'\nIssued: '+(r.issued||'Not provided')+'\nCertificate ID: '+id+'\n\nIssued by Cyber Fortress Technologies','valid');
+    }else{
+      qrStatus('✗ CERTIFICATE NOT FOUND OR INVALID\n\nCertificate ID: '+id+'\n\nNo valid certificate record was found in the CyFort Academy database.','invalid');
+    }
+  }catch(err){qrStatus('VERIFICATION UNAVAILABLE\n\nThe certificate could not be checked against the database. This does not establish that it is invalid.\n\nDetails: '+err.message,'error');}
 }
-if(certParam){$('certificateId').value=certParam.trim();message('verifyStatus','Connecting to certificate verification service…');setTimeout(()=>{if(!bridgeReady)message('verifyStatus','Verification service unavailable. Check the Apps Script deployment and config.js.');},30000)}
+if(certParam!==null){
+  setTimeout(()=>{if(!bridgeReady){qrStatus('VERIFICATION UNAVAILABLE\n\nThe CyFort Academy backend did not connect. Check the deployed Apps Script URL in config.js and its access permissions.','error');}},30000);
+}
 renderModules();if(window.CYFORT_CONFIG?.appsScriptUrl?.startsWith('https://script.google.com/macros/s/')){$('bridge').src=window.CYFORT_CONFIG.appsScriptUrl+'?view=bridge';$('backendState').textContent='Connecting…'}
+
+if(certParam!==null&&!window.CYFORT_CONFIG?.appsScriptUrl?.startsWith('https://script.google.com/macros/s/')){qrStatus('VERIFICATION UNAVAILABLE\n\nThe website backend URL is missing or invalid in config.js.','error');}
