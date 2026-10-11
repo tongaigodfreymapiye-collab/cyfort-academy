@@ -1,0 +1,10 @@
+CyFort Academy logo + brand correction
+
+1. In your GitHub repository cyfort-academy, replace the root index.html with this index.html.
+2. Upload assets/cyfort-logo.png, preserving the assets folder name exactly.
+   The browser path must be assets/cyfort-logo.png (lowercase and case-sensitive).
+3. Keep your existing app.js and config.js unchanged.
+4. Commit changes on main and allow GitHub Pages to redeploy.
+5. Hard refresh the published page (Ctrl+Shift+R).
+
+Do not upload the ZIP itself. This patch changes presentation and the image path only; it does not configure the Google Apps Script backend.
