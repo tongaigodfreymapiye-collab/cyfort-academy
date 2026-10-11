@@ -1,0 +1,5 @@
+.env
+*.secret
+credentials.json
+private/
+.DS_Store
