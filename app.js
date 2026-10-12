@@ -2,7 +2,7 @@
 const modules=['Governance and Cybersecurity Foundations','NIST Risk Management Framework','Risk Identification and Analysis','Control Selection and Risk Treatment','Zimbabwe and International Compliance','Supply Chain, Cloud and SaaS Risk','Security Planning and Executive Reporting','Professional Practice and Ethics'];
 const $=id=>document.getElementById(id);let bridgeReady=false, activeQuiz=null;
 const auth=()=>{try{return JSON.parse(sessionStorage.getItem('cyfort_session')||'null')}catch{return null}};
-const message=(id,msg)=>$(id).textContent=msg;
+const message=(id,msg)=>{const el=$(id);if(el)el.textContent=msg;};
 
 // Local UI state only. Google Sheets remains the authoritative enrolment database.
 const ENROLMENT_UI_KEY='cyfort_enrolment_ui_v1';
@@ -11,13 +11,14 @@ function rememberEnrolment(id,stage){if(!id)return;localStorage.setItem(ENROLMEN
 function updateEnrolmentUI(){
   const cta=document.querySelector('.topcta');if(!cta)return;
   const saved=savedEnrolment();const session=auth();
-  const active=Boolean(session&&session.enrolmentId);
+  const active=Boolean(session&&session.enrolmentId&&session.token);
   const pending=Boolean(!active&&saved&&saved.enrolmentId);
+  const previouslyApproved=Boolean(pending&&saved.stage==='active');
   cta.classList.toggle('is-enrolled',active);
   cta.classList.toggle('is-pending',pending);
-  cta.textContent=active?'Enrolled ✓':pending?'Registration received ✓':'Enrol now ↗';
+  cta.textContent=active?'My learning ✓':previouslyApproved?'Sign in ↗':pending?'Registration received ✓':'Enrol now ↗';
   cta.href=active?'#access':pending?'#access':'#enrolment';
-  cta.title=active?'Student access confirmed in this browser':pending?'Registration recorded in this browser; payment approval is still required':'Register for CCRA-GP';
+  cta.title=active?'Continue your learning':previouslyApproved?'Sign in again to verify learner access':pending?'Registration recorded in this browser; payment approval is still required':'Register for CCRA-GP';
   const status=document.getElementById('enrolmentStage');
   if(status){status.textContent=active?'Your student access is active. Open the Student Portal to continue.':pending?'Registration received. Check your original payment email; do not submit another registration. Sign in after your payment is approved.':'New students: register once. Existing students: use the Student Portal.';}
   // Keep registration hidden after a confirmed enrolment in this browser.
@@ -26,10 +27,10 @@ function updateEnrolmentUI(){
   const alreadyRegistered=active||pending;
   if(registrationForm){registrationForm.hidden=alreadyRegistered;registrationForm.style.display=alreadyRegistered?'none':'';}
   const registrationTitle=document.querySelector('#registration > h3');
-  if(registrationTitle)registrationTitle.textContent=active?'Enrolment confirmed ✓':pending?'Registration received ✓':'Register for CCRA-GP';
+  if(registrationTitle)registrationTitle.textContent=active?'My learning dashboard':previouslyApproved?'Returning learner':pending?'Registration received ✓':'Register for CCRA-GP';
   const registrationMessage=document.getElementById('enrollStatus');
   if(registrationMessage&&alreadyRegistered){
-    registrationMessage.textContent=active?'Your enrolment is active. Continue to the Student Portal to access your training.':'Your registration has been received. Check your email for payment instructions, then sign in after approval.';
+    registrationMessage.textContent=active?'You are signed in. Continue to the Student Portal to access your training.':previouslyApproved?'Welcome back. Sign in through the Student Portal to continue your training.':'Your registration has been received. Check your email for payment instructions, then sign in after approval.';
   }
 }
 
@@ -58,6 +59,18 @@ window.addEventListener('message',e=>{
     bridgeWindow=e.source;bridgeOrigin=e.origin;bridgeReady=true;
     $('backendState').textContent='Service connected';
     if(certParam!==null)verifyFromQR();
+    // Recheck an existing tab session against the authoritative backend.
+    const previous=auth();
+    if(previous&&previous.enrolmentId&&previous.token){
+      api('authenticate',previous).then(r=>{
+        rememberEnrolment(previous.enrolmentId,'active');
+        message('loginStatus','Welcome back, '+r.name+'. Your learning access is active.');
+      }).catch(()=>{
+        sessionStorage.removeItem('cyfort_session');
+        updateEnrolmentUI();
+        message('loginStatus','Please sign in again to verify your learning access.');
+      });
+    }
     return;
   }
   if(d.kind!=='cyfort-response'||e.source!==bridgeWindow||e.origin!==bridgeOrigin||!pending.has(String(d.id)))return;
@@ -103,7 +116,7 @@ async function cyfortOpenProtected(action,n,mime){
   }
 }
 function renderModules(){
-  const root=$('modules');root.replaceChildren();
+  const root=$('moduleCards');if(!root)return;root.replaceChildren();
   modules.forEach((name,i)=>{
     const n=i+1,div=document.createElement('div');div.className='module';
     const heading=document.createElement('h3');heading.textContent=`Module ${n}: ${name}`;
@@ -155,8 +168,11 @@ renderModules();updateEnrolmentUI();if(/^https:\/\/script\.google\.com\/macros\/
 if(certParam!==null&&!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(window.CYFORT_CONFIG?.appsScriptUrl||'')){qrStatus('VERIFICATION UNAVAILABLE\n\nThe website backend URL is missing or invalid in config.js.','error');}
 
 // Evidence is reviewed by an administrator; it never self-approves a learner.
-$('cyfortSubmitEvidence').onclick=async()=>{
-  const s=auth(),file=$('cyfortEvidenceFile').files[0],status=$('cyfortEvidenceStatus');
+const evidenceButton=$('cyfortSubmitEvidence');
+if(evidenceButton)evidenceButton.onclick=async()=>{
+  const input=$('cyfortEvidenceFile'),status=$('cyfortEvidenceStatus');
+  if(!input||!status)return;
+  const s=auth(),file=input.files[0];
   if(!s){status.textContent='Sign in before submitting evidence.';return}
   if(!file){status.textContent='Choose the exported workstation evidence JSON file.';return}
   if(file.size>12000){status.textContent='Evidence exceeds the 12 KB submission limit.';return}
