@@ -1,0 +1,1 @@
+Upload app.js to the root of your cyfort-academy GitHub repository, replacing the existing app.js. No Code.gs or Bridge.html changes required. After GitHub Pages deploys, hard refresh. Form is hidden after confirmed registration in this browser or successful login. This is UI-only; the backend remains authoritative.

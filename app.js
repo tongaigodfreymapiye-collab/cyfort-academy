@@ -20,6 +20,17 @@ function updateEnrolmentUI(){
   cta.title=active?'Student access confirmed in this browser':pending?'Registration recorded in this browser; payment approval is still required':'Register for CCRA-GP';
   const status=document.getElementById('enrolmentStage');
   if(status){status.textContent=active?'Your student access is active. Open the Student Portal to continue.':pending?'Registration received. Check your original payment email; do not submit another registration. Sign in after your payment is approved.':'New students: register once. Existing students: use the Student Portal.';}
+  // Keep registration hidden after a confirmed enrolment in this browser.
+  // The backend remains authoritative; local storage is only a display hint.
+  const registrationForm=document.getElementById('enrollForm');
+  const alreadyRegistered=active||pending;
+  if(registrationForm){registrationForm.hidden=alreadyRegistered;registrationForm.style.display=alreadyRegistered?'none':'';}
+  const registrationTitle=document.querySelector('#registration > h3');
+  if(registrationTitle)registrationTitle.textContent=active?'Enrolment confirmed ✓':pending?'Registration received ✓':'Register for CCRA-GP';
+  const registrationMessage=document.getElementById('enrollStatus');
+  if(registrationMessage&&alreadyRegistered){
+    registrationMessage.textContent=active?'Your enrolment is active. Continue to the Student Portal to access your training.':'Your registration has been received. Check your email for payment instructions, then sign in after approval.';
+  }
 }
 
 // The Apps Script HTML Service page runs inside a Google-managed nested iframe.
@@ -53,7 +64,58 @@ window.addEventListener('message',e=>{
   const p=pending.get(String(d.id));pending.delete(String(d.id));clearTimeout(p.timer);
   d.ok?p.resolve(d.data):p.reject(new Error(d.error||'Service error'));
 });
-function renderModules(){const root=$('modules');root.replaceChildren();modules.forEach((name,i)=>{const n=i+1;const div=document.createElement('div');div.className='module';const heading=document.createElement('h3');heading.textContent=`Module ${n}: ${name}`;const caption=document.createElement('p');caption.className='muted';caption.textContent=n===1?'Free learning preview; graded completion requires an activated enrolment.':'Paid access — requires a verified enrolment.';const btn=document.createElement('button');btn.textContent=`Open module ${n} assessment`;btn.onclick=()=>openQuiz(n);div.append(heading,caption,btn);root.append(div);});}
+function cyfortRequireLogin(){
+  if(auth()) return true;
+  message('loginStatus','Please sign in to open the paid learning materials and virtual workstations.');
+  location.hash='access';$('loginForm').scrollIntoView({behavior:'smooth'});
+  return false;
+}
+/* Protected materials are fetched only after backend authorisation.
+   No paid asset URLs or IDs are published in GitHub Pages. */
+function cyfortOpenStudy(n){
+  if(!cyfortRequireLogin())return;
+  cyfortOpenProtected('getStudy',n,'application/pdf');
+}
+function cyfortOpenLab(n){
+  if(!cyfortRequireLogin())return;
+  cyfortOpenProtected('getLab',n,'text/html');
+}
+async function cyfortOpenProtected(action,n,mime){
+  // Open the tab synchronously so popup blockers do not discard it.
+  const tab=window.open('about:blank','_blank');
+  if(!tab){message('loginStatus','Please allow pop-ups for CyFort Academy.');return}
+  tab.document.title='CyFort Academy — Loading';
+  tab.document.body.textContent='Checking learner access and loading protected training material…';
+  try{
+    const result=await api(action,{...auth(),module:n});
+    if(!result||!result.base64||result.mime!==mime)throw Error('Unexpected protected content response.');
+    const binary=atob(result.base64);
+    const bytes=new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+    const blob=new Blob([bytes],{type:mime});
+    const url=URL.createObjectURL(blob);
+    tab.location.replace(url);
+    // Keep object URL alive for browser PDF viewer and workstation navigation.
+    window.addEventListener('pagehide',()=>URL.revokeObjectURL(url),{once:true});
+  }catch(error){
+    try{tab.document.body.textContent='Access denied or content unavailable: '+error.message}catch(e){}
+    message('loginStatus','Unable to open protected material: '+error.message);
+  }
+}
+function renderModules(){
+  const root=$('modules');root.replaceChildren();
+  modules.forEach((name,i)=>{
+    const n=i+1,div=document.createElement('div');div.className='module';
+    const heading=document.createElement('h3');heading.textContent=`Module ${n}: ${name}`;
+    const caption=document.createElement('p');caption.className='muted';
+    caption.textContent=n===1?'Free study PDF preview; assessments and virtual workstations require active enrolment.':'Study PDF and browser virtual workstation available to signed-in learners.';
+    const study=document.createElement('button');study.textContent=`Read Module ${n} study PDF`;study.onclick=()=>cyfortOpenStudy(n);
+    const lab=document.createElement('button');lab.textContent=`Launch Module ${n} virtual workstation`;lab.onclick=()=>cyfortOpenLab(n);
+    const assessment=document.createElement('button');assessment.textContent=`Open Module ${n} assessment`;assessment.onclick=()=>openQuiz(n);
+    [study,lab,assessment].forEach(btn=>{btn.style.margin='4px 9px 6px 0';btn.style.padding='10px 14px';btn.style.borderRadius='7px'});
+    div.append(heading,caption,study,lab,assessment);root.append(div);
+  });
+}
 $('enrollForm').addEventListener('submit',async e=>{e.preventDefault();message('enrollStatus','Submitting enrolment…');try{const r=await api('enroll',{name:$('fullName').value.trim(),email:$('email').value.trim(),consent:$('consent').checked});rememberEnrolment(r.enrolmentId,'pending');message('enrollStatus',`Enrolment received. Your ID: ${r.enrolmentId}. Check your email for bank transfer instructions. Keep this ID safe. Your registration is pending payment approval.`)}catch(err){message('enrollStatus',err.message)}});
 $('loginForm').addEventListener('submit',async e=>{e.preventDefault();const s={enrolmentId:$('learnerId').value.trim(),token:$('accessToken').value.trim()};message('loginStatus','Validating access…');try{const r=await api('authenticate',s);sessionStorage.setItem('cyfort_session',JSON.stringify(s));rememberEnrolment(s.enrolmentId,'active');message('loginStatus',`Access confirmed for ${r.name}. You may now complete assessments.`)}catch(err){message('loginStatus',err.message)}});
 $('logout').onclick=()=>{sessionStorage.removeItem('cyfort_session');$('accessToken').value='';updateEnrolmentUI();message('loginStatus','Session cleared. Sign in again to confirm active student access.');};
@@ -91,3 +153,17 @@ if(certParam!==null){
 renderModules();updateEnrolmentUI();if(/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(window.CYFORT_CONFIG?.appsScriptUrl||'')){$('bridge').src=window.CYFORT_CONFIG.appsScriptUrl+'?view=bridge&nonce='+encodeURIComponent(bridgeNonce);$('backendState').textContent='Connecting…'}
 
 if(certParam!==null&&!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(window.CYFORT_CONFIG?.appsScriptUrl||'')){qrStatus('VERIFICATION UNAVAILABLE\n\nThe website backend URL is missing or invalid in config.js.','error');}
+
+// Evidence is reviewed by an administrator; it never self-approves a learner.
+$('cyfortSubmitEvidence').onclick=async()=>{
+  const s=auth(),file=$('cyfortEvidenceFile').files[0],status=$('cyfortEvidenceStatus');
+  if(!s){status.textContent='Sign in before submitting evidence.';return}
+  if(!file){status.textContent='Choose the exported workstation evidence JSON file.';return}
+  if(file.size>12000){status.textContent='Evidence exceeds the 12 KB submission limit.';return}
+  try{
+    const evidence=JSON.parse(await file.text());
+    status.textContent='Submitting for administrator review…';
+    const result=await api('submitLabEvidence',{...s,evidence});
+    status.textContent='Evidence received. Reference: '+result.submissionId+'. Await administrator review.';
+  }catch(e){status.textContent='Submission failed: '+e.message}
+};
