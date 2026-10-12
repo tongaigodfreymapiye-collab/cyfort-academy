@@ -1,10 +1,12 @@
-CyFort Academy logo + brand correction
+CYFORT ACADEMY — ROOT-LEVEL ASSET FIX
 
-1. In your GitHub repository cyfort-academy, replace the root index.html with this index.html.
-2. Upload assets/cyfort-logo.png, preserving the assets folder name exactly.
-   The browser path must be assets/cyfort-logo.png (lowercase and case-sensitive).
-3. Keep your existing app.js and config.js unchanged.
-4. Commit changes on main and allow GitHub Pages to redeploy.
-5. Hard refresh the published page (Ctrl+Shift+R).
+This package removes the need for an assets/ subfolder.
 
-Do not upload the ZIP itself. This patch changes presentation and the image path only; it does not configure the Google Apps Script backend.
+1. Extract ZIP.
+2. Upload index.html, app.js, config.js, style.css, cyfort-logo.png, ccra-gp-advert.png, CyFort_NIST_RMF_Risk_Register.xlsx, plus docs/ and data/ folders to the ROOT of the cyfort-academy GitHub repository.
+3. Confirm root contains index.html and style.css side by side. Commit.
+4. Check https://tongaigodfreymapiye-collab.github.io/cyfort-academy/style.css and /cyfort-logo.png
+5. Refresh page with Ctrl+Shift+R.
+6. Do not modify Code.gs, Bridge.html, Script Properties, Sheets or Slides template.
+
+This fixes static paths and duplicate modules ID. Backend still requires separate live testing.
