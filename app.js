@@ -3,6 +3,25 @@ const modules=['Governance and Cybersecurity Foundations','NIST Risk Management 
 const $=id=>document.getElementById(id);let bridgeReady=false, activeQuiz=null;
 const auth=()=>{try{return JSON.parse(sessionStorage.getItem('cyfort_session')||'null')}catch{return null}};
 const message=(id,msg)=>$(id).textContent=msg;
+
+// Local UI state only. Google Sheets remains the authoritative enrolment database.
+const ENROLMENT_UI_KEY='cyfort_enrolment_ui_v1';
+function savedEnrolment(){try{return JSON.parse(localStorage.getItem(ENROLMENT_UI_KEY)||'null')}catch{return null}}
+function rememberEnrolment(id,stage){if(!id)return;localStorage.setItem(ENROLMENT_UI_KEY,JSON.stringify({enrolmentId:id,stage}));updateEnrolmentUI()}
+function updateEnrolmentUI(){
+  const cta=document.querySelector('.topcta');if(!cta)return;
+  const saved=savedEnrolment();const session=auth();
+  const active=Boolean(session&&session.enrolmentId);
+  const pending=Boolean(!active&&saved&&saved.enrolmentId);
+  cta.classList.toggle('is-enrolled',active);
+  cta.classList.toggle('is-pending',pending);
+  cta.textContent=active?'Enrolled ✓':pending?'Registration received ✓':'Enrol now ↗';
+  cta.href=active?'#access':pending?'#access':'#enrolment';
+  cta.title=active?'Student access confirmed in this browser':pending?'Registration recorded in this browser; payment approval is still required':'Register for CCRA-GP';
+  const status=document.getElementById('enrolmentStage');
+  if(status){status.textContent=active?'Your student access is active. Open the Student Portal to continue.':pending?'Registration received. Check your original payment email; do not submit another registration. Sign in after your payment is approved.':'New students: register once. Existing students: use the Student Portal.';}
+}
+
 // The Apps Script HTML Service page runs inside a Google-managed nested iframe.
 // A ready handshake identifies the *actual* sender window, rather than assuming
 // it is the outer iframe.contentWindow.
@@ -35,9 +54,9 @@ window.addEventListener('message',e=>{
   d.ok?p.resolve(d.data):p.reject(new Error(d.error||'Service error'));
 });
 function renderModules(){const root=$('modules');root.replaceChildren();modules.forEach((name,i)=>{const n=i+1;const div=document.createElement('div');div.className='module';const heading=document.createElement('h3');heading.textContent=`Module ${n}: ${name}`;const caption=document.createElement('p');caption.className='muted';caption.textContent=n===1?'Free learning preview; graded completion requires an activated enrolment.':'Paid access — requires a verified enrolment.';const btn=document.createElement('button');btn.textContent=`Open module ${n} assessment`;btn.onclick=()=>openQuiz(n);div.append(heading,caption,btn);root.append(div);});}
-$('enrollForm').addEventListener('submit',async e=>{e.preventDefault();message('enrollStatus','Submitting enrolment…');try{const r=await api('enroll',{name:$('fullName').value.trim(),email:$('email').value.trim(),consent:$('consent').checked});message('enrollStatus',`Enrolment received. Your ID: ${r.enrolmentId}. Check your email for bank transfer instructions. Keep this ID safe.`)}catch(err){message('enrollStatus',err.message)}});
-$('loginForm').addEventListener('submit',async e=>{e.preventDefault();const s={enrolmentId:$('learnerId').value.trim(),token:$('accessToken').value.trim()};message('loginStatus','Validating access…');try{const r=await api('authenticate',s);sessionStorage.setItem('cyfort_session',JSON.stringify(s));message('loginStatus',`Access confirmed for ${r.name}. You may now complete assessments.`)}catch(err){message('loginStatus',err.message)}});
-$('logout').onclick=()=>{sessionStorage.removeItem('cyfort_session');$('accessToken').value='';message('loginStatus','Session cleared.');};
+$('enrollForm').addEventListener('submit',async e=>{e.preventDefault();message('enrollStatus','Submitting enrolment…');try{const r=await api('enroll',{name:$('fullName').value.trim(),email:$('email').value.trim(),consent:$('consent').checked});rememberEnrolment(r.enrolmentId,'pending');message('enrollStatus',`Enrolment received. Your ID: ${r.enrolmentId}. Check your email for bank transfer instructions. Keep this ID safe. Your registration is pending payment approval.`)}catch(err){message('enrollStatus',err.message)}});
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();const s={enrolmentId:$('learnerId').value.trim(),token:$('accessToken').value.trim()};message('loginStatus','Validating access…');try{const r=await api('authenticate',s);sessionStorage.setItem('cyfort_session',JSON.stringify(s));rememberEnrolment(s.enrolmentId,'active');message('loginStatus',`Access confirmed for ${r.name}. You may now complete assessments.`)}catch(err){message('loginStatus',err.message)}});
+$('logout').onclick=()=>{sessionStorage.removeItem('cyfort_session');$('accessToken').value='';updateEnrolmentUI();message('loginStatus','Session cleared. Sign in again to confirm active student access.');};
 async function openQuiz(n){const s=auth();if(!s){message('loginStatus','Enter your enrolment ID and access token first.');$('loginForm').scrollIntoView({behavior:'smooth'});return}message('quizStatus','Loading assessment…');$('quizPanel').classList.remove('hidden');$('quizPanel').scrollIntoView({behavior:'smooth'});try{const r=await api('getQuiz',{...s,module:n});activeQuiz=n;$('quizTitle').textContent=`Module ${n}: ${modules[n-1]}`;const root=$('quizQuestions');root.replaceChildren();r.questions.forEach((q,i)=>{const fs=document.createElement('fieldset');const legend=document.createElement('legend');legend.textContent=`${i+1}. ${q.prompt}`;fs.append(legend);q.options.forEach((opt,j)=>{const label=document.createElement('label');const radio=document.createElement('input');radio.type='radio';radio.name=`q${i}`;radio.value=String(j);label.append(radio,document.createTextNode(opt));fs.append(label)});root.append(fs)});message('quizStatus',`Pass mark: ${r.passPercent}%. Answers are checked by CyFort's backend.`)}catch(err){activeQuiz=null;$('quizQuestions').replaceChildren();message('quizStatus',err.message)}}
 $('submitQuiz').onclick=async()=>{if(!activeQuiz)return;const answers=[];for(let i=0;i<$('quizQuestions').children.length;i++){const selected=document.querySelector(`input[name=q${i}]:checked`);if(!selected){message('quizStatus','Answer every question before submitting.');return}answers.push(Number(selected.value))}message('quizStatus','Submitting assessment…');try{const r=await api('submitQuiz',{...auth(),module:activeQuiz,answers});message('quizStatus',`Score: ${r.score}%. ${r.passed?'PASS':'NOT YET PASSED'}. ${r.message}`)}catch(err){message('quizStatus',err.message)}};
 $('closeQuiz').onclick=()=>$('quizPanel').classList.add('hidden');
@@ -69,6 +88,6 @@ async function verifyFromQR(){
 if(certParam!==null){
   setTimeout(()=>{if(!bridgeReady){qrStatus('VERIFICATION UNAVAILABLE\n\nThe CyFort Academy backend did not connect. Check the deployed Apps Script URL in config.js and its access permissions.','error');}},30000);
 }
-renderModules();if(/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(window.CYFORT_CONFIG?.appsScriptUrl||'')){$('bridge').src=window.CYFORT_CONFIG.appsScriptUrl+'?view=bridge&nonce='+encodeURIComponent(bridgeNonce);$('backendState').textContent='Connecting…'}
+renderModules();updateEnrolmentUI();if(/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(window.CYFORT_CONFIG?.appsScriptUrl||'')){$('bridge').src=window.CYFORT_CONFIG.appsScriptUrl+'?view=bridge&nonce='+encodeURIComponent(bridgeNonce);$('backendState').textContent='Connecting…'}
 
 if(certParam!==null&&!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(window.CYFORT_CONFIG?.appsScriptUrl||'')){qrStatus('VERIFICATION UNAVAILABLE\n\nThe website backend URL is missing or invalid in config.js.','error');}
