@@ -41,6 +41,6 @@ async function verifyFromQR(){
 if(certParam!==null){
   setTimeout(()=>{if(!bridgeReady){qrStatus('VERIFICATION UNAVAILABLE\n\nThe CyFort Academy backend did not connect. Check the deployed Apps Script URL in config.js and its access permissions.','error');}},30000);
 }
-renderModules();if(window.CYFORT_CONFIG?.appsScriptUrl?.startsWith('https://script.google.com/macros/s/')){$('bridge').src=window.CYFORT_CONFIG.appsScriptUrl+'?view=bridge';$('backendState').textContent='Connecting…'}
+renderModules();if(/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(window.CYFORT_CONFIG?.appsScriptUrl||'')){$('bridge').src=window.CYFORT_CONFIG.appsScriptUrl+'?view=bridge';$('backendState').textContent='Connecting…'}
 
-if(certParam!==null&&!window.CYFORT_CONFIG?.appsScriptUrl?.startsWith('https://script.google.com/macros/s/')){qrStatus('VERIFICATION UNAVAILABLE\n\nThe website backend URL is missing or invalid in config.js.','error');}
+if(certParam!==null&&!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(window.CYFORT_CONFIG?.appsScriptUrl||'')){qrStatus('VERIFICATION UNAVAILABLE\n\nThe website backend URL is missing or invalid in config.js.','error');}
