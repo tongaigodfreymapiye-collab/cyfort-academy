@@ -1,0 +1,12 @@
+.cyfort-course-search{margin:14px 14px 22px 220px;padding:22px;border:1px solid #303948;border-radius:14px;background:#10141e;color:#f5f6fa}
+.cyfort-course-search h3{margin:0 0 8px;font-size:1.35rem}
+.cyfort-course-search p{line-height:1.5;color:#c6cedb}
+.cyfort-course-search label{display:block;margin:12px 0 6px;font-weight:600}
+.cyfort-search-row{display:flex;gap:10px;flex-wrap:wrap}
+.cyfort-search-row input{flex:1 1 250px;min-width:0;padding:12px;background:#0b101a;color:#fff;border:1px solid #5d6879;border-radius:8px}
+.cyfort-search-row button{padding:12px 18px;border:0;border-radius:8px;background:#d80020;color:white;font-weight:700;cursor:pointer}
+.cyfort-search-row button:disabled{opacity:.6;cursor:wait}
+.cyfort-search-result{padding:14px 0;border-top:1px solid #303948}
+.cyfort-search-result h4{margin:0 0 6px;color:#fff}
+.cyfort-search-result p{white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+@media(max-width:800px){.cyfort-course-search{margin:14px;padding:16px}}
