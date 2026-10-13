@@ -13,7 +13,43 @@
 .scenario-grid .cyfort-scenario-link.bank{background:linear-gradient(140deg,#102d55,#091321)}.scenario-grid .cyfort-scenario-link.health{background:linear-gradient(140deg,#075446,#0a201d)}.scenario-grid .cyfort-scenario-link.retail{background:linear-gradient(140deg,#653006,#281408)}.scenario-grid .cyfort-scenario-link.cloud{background:linear-gradient(140deg,#382169,#191127)}
 .scenario-grid .cyfort-scenario-link>span{font-size:30px;line-height:1.3}.scenario-grid .cyfort-scenario-link h3{margin:10px 0}.scenario-grid .cyfort-scenario-link strong{font-size:12px;color:#ffb2bc}.scenario-grid .cyfort-scenario-link p{font-size:12px;line-height:1.5;margin:8px 0 12px}.scenario-grid .cyfort-scenario-link small{font-size:12px;color:#d6e8ff;margin-top:auto}
 .cyfort-threat-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(270px,1fr);gap:14px}.cyfort-threat-map-card,.cyfort-threat-feed-card{background:#12161f;border:1px solid #3b414e;border-radius:10px;padding:15px;min-width:0}.cyfort-threat-heading{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:13px}.cyfort-sim-badge{font-size:10px;color:#ffb5bd;border:1px solid #b03b4d;padding:4px 6px;border-radius:5px}.cyfort-map-stage{border-radius:7px;overflow:hidden;background:#081521}.cyfort-map-stage svg{width:100%;display:block}.cyfort-map-disclaimer,.cyfort-feed-explain{font-size:12px;color:#b6becb;line-height:1.5;margin:10px 0}.cyfort-sim-controls,.cyfort-feed-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;font-size:12px}.cyfort-sim-controls .button,.cyfort-feed-actions .button{padding:8px 12px;font-size:12px}.cyfort-feed-actions a,.cyfort-source-row a{color:#bddbff;text-decoration:none;font-size:12px}.cyfort-kev-feed{max-height:320px;overflow:auto;display:grid;gap:9px}.cyfort-kev-item{padding:10px;border:1px solid #343c4a;border-radius:7px;background:#1b202a}.cyfort-kev-item b{font-size:12px;color:#fff}.cyfort-kev-item p{margin:5px 0;color:#c8d0dc;font-size:12px;line-height:1.4}.cyfort-kev-item small{font-size:11px;color:#e9a9b1}.cyfort-kev-item a{color:#a8ceff;font-size:12px}.cyfort-source-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px}.cyfort-sim-route{fill:none;stroke:#ff4c69;stroke-width:2;stroke-dasharray:6 7;opacity:.8;animation:cyfortDash 2.5s linear infinite}.cyfort-sim-point{fill:#ff526b;stroke:#ffb0be;stroke-width:1}.cyfort-sim-pulse{fill:none;stroke:#ff526b;stroke-width:2;animation:cyfortPulse 2.3s ease-out infinite}@keyframes cyfortDash{to{stroke-dashoffset:-26}}@keyframes cyfortPulse{0%{r:3;opacity:.95}100%{r:24;opacity:0}}@media(max-width:850px){.cyfort-threat-layout{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){.cyfort-sim-route,.cyfort-sim-pulse{animation:none}}
-</style><style id="cyfort-news-styles">#threat-intelligence .cyfort-news-filters{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}#threat-intelligence .cyfort-news-filter{cursor:pointer;border:1px solid #414a58;background:#1d222d;color:#f0f2f6;border-radius:6px;padding:7px 10px;font:inherit;font-size:12px}#threat-intelligence .cyfort-news-filter.active,#threat-intelligence .cyfort-news-filter:hover{border-color:#ed1937;background:#7a0d21}#threat-intelligence .cyfort-news-feed{max-height:460px;overflow-y:auto}#threat-intelligence .cyfort-news-item{padding:13px 12px;border:1px solid #3a4556;border-radius:9px;background:#1b202a;margin:0 0 9px}#threat-intelligence .cyfort-news-item a{font-weight:700;color:#f5f6fa;text-decoration:none}#threat-intelligence .cyfort-news-item a:hover{text-decoration:underline;color:#ff566e}#threat-intelligence .cyfort-news-item small{display:block;color:#aeb9ca;margin-top:8px}#threat-intelligence .cyfort-news-item p{font-size:13px;line-height:1.45;margin:7px 0 0}#threat-intelligence .cyfort-news-error{padding:12px;border:1px solid #475065;border-radius:7px}#threat-intelligence .cyfort-news-error a{color:#ff687b}</style><link rel="stylesheet" href="browser-labs.css"><link rel="stylesheet" href="final-assessment.css"></head><body>
+</style><style id="cyfort-news-styles">#threat-intelligence .cyfort-news-filters{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}#threat-intelligence .cyfort-news-filter{cursor:pointer;border:1px solid #414a58;background:#1d222d;color:#f0f2f6;border-radius:6px;padding:7px 10px;font:inherit;font-size:12px}#threat-intelligence .cyfort-news-filter.active,#threat-intelligence .cyfort-news-filter:hover{border-color:#ed1937;background:#7a0d21}#threat-intelligence .cyfort-news-feed{max-height:460px;overflow-y:auto}#threat-intelligence .cyfort-news-item{padding:13px 12px;border:1px solid #3a4556;border-radius:9px;background:#1b202a;margin:0 0 9px}#threat-intelligence .cyfort-news-item a{font-weight:700;color:#f5f6fa;text-decoration:none}#threat-intelligence .cyfort-news-item a:hover{text-decoration:underline;color:#ff566e}#threat-intelligence .cyfort-news-item small{display:block;color:#aeb9ca;margin-top:8px}#threat-intelligence .cyfort-news-item p{font-size:13px;line-height:1.45;margin:7px 0 0}#threat-intelligence .cyfort-news-error{padding:12px;border:1px solid #475065;border-radius:7px}#threat-intelligence .cyfort-news-error a{color:#ff687b}</style><style>
+
+#browser-labs .lab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin:18px 0}
+#browser-labs .lab-tile{background:#20252e;border:1px solid #444c5b;border-radius:10px;padding:16px;color:#f7f8fa;text-align:left;cursor:pointer;min-height:145px}
+#browser-labs .lab-tile:hover,#browser-labs .lab-tile:focus-visible{border-color:#fa324a;outline:2px solid transparent;background:#292e39}
+#browser-labs .lab-tile strong{display:block;font-size:17px;margin:8px 0}#browser-labs .lab-tile small{color:#bbc3d0}
+#browser-labs .lab-workspace{border:1px solid #444c5b;border-radius:12px;overflow:hidden;background:#111821}
+#browser-labs .lab-bar{background:#222935;padding:13px;display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+#browser-labs .lab-status{color:#b9e7c5;font-weight:700}#browser-labs .lab-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(240px,1fr);gap:12px;padding:14px}
+#browser-labs .lab-console{background:#060d13;color:#c4f6d2;border:1px solid #394456;border-radius:8px;min-height:310px;padding:13px;font:13px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow:auto;max-height:410px}
+#browser-labs .lab-controls{display:flex;gap:8px;margin-top:10px}#browser-labs .lab-controls input{flex:1;min-width:0;background:#111821;color:white;border:1px solid #5a6678;border-radius:6px;padding:12px;font-family:monospace}
+#browser-labs .lab-controls button,#browser-labs .lab-actions button{border:1px solid #a92a3a;border-radius:7px;padding:10px 14px;background:#c60020;color:white;cursor:pointer}
+#browser-labs .lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+#browser-labs .lab-actions button.secondary{background:#242c37;border-color:#596273}
+#browser-labs .lab-tasks{margin:0;padding:0;list-style:none}#browser-labs .lab-tasks li{padding:9px 0;border-bottom:1px solid #38404d;font-size:13px}
+#browser-labs .lab-tasks li.done{color:#9fe0ae}#browser-labs .lab-tasks code{display:block;color:#ff9aab;overflow-wrap:anywhere}
+#browser-labs .lab-score{font-size:25px;font-weight:800;color:white}
+#browser-labs .lab-note{color:#aeb8c7;font-size:13px}
+@media(max-width:800px){#browser-labs .lab-body{grid-template-columns:1fr}}
+
+</style><style>
+
+#final-assessment .final-meta{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+#final-assessment .final-meta span{background:#252b35;border:1px solid #414a59;padding:8px 12px;border-radius:8px}
+#final-assessment .final-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+#final-assessment .final-actions button{background:#c90026;color:white;border:1px solid #ed3b52;border-radius:7px;padding:11px 17px;cursor:pointer}
+#final-assessment .final-actions button.secondary{background:#272d38;border-color:#515a68}
+#final-assessment .final-question{padding:16px;border:1px solid #454c58;background:#1b2029;border-radius:10px;margin:12px 0}
+#final-assessment .final-question legend{font-weight:700;margin-bottom:10px;padding:0 5px}
+#final-assessment .final-question label{display:flex;gap:10px;align-items:start;padding:8px 4px;cursor:pointer}
+#final-assessment .final-question label:hover{background:#303744}
+#final-assessment .final-question input{margin-top:4px}
+#final-assessment .final-result{border:1px solid #667184;border-radius:10px;padding:18px;margin-top:15px;background:#18202b}
+#final-assessment .final-result strong{font-size:24px}
+#final-assessment .final-hint{color:#b8c1cd;font-size:13px}
+
+</style></head><body>
 <header class="topbar"><a class="brand" href="#dashboard"><img alt="CyFort official logo" src="cyfort-logo.png"/><span><b>CYBER FORTRESS TECHNOLOGIES</b><small>PEOPLE | TECHNOLOGY | GOVERNANCE</small></span></a><div class="topright"><span class="status">● CCRA-GP 2026</span><span class="connection" id="backendState" role="status">Connecting…</span><a class="topcta" href="#enrolment">Enrol now ↗</a></div></header>
 <div class="shell"><aside class="sidebar"><div class="sidebar-title">CYFORT ACADEMY</div><nav id="nav"><a class="active" href="#dashboard">⌂ <span>Dashboard</span></a><a href="#overview">▤ <span>Programme Overview</span></a><a href="#modules">▦ <span>Learning Modules</span></a><a href="#scenarios">◈ <span>Business Scenarios</span></a><a href="#browser-labs">⌘ <span>Browser Labs</span></a><a href="#final-assessment">☑ <span>Final Assessment</span></a><a href="#frameworks">▥ <span>Frameworks</span></a><a href="#tools">▣ <span>Tools &amp; Templates</span></a><a href="#enrolment">↗ <span>Enrolment</span></a><a href="#access">◉ <span>Student Portal</span></a><a href="#assessments">☑ <span>Assessments</span></a><a href="#progress-section">▥ <span>My Progress</span></a><a href="#verification">◉ <span>Certificate</span></a></nav><div class="sidebar-bottom"><p>“Practical skills for real-world roles in cybersecurity risk and governance.”</p><div class="globe">◎</div><small>SECURE EVERYTHING</small></div></aside>
 <main id="dashboard"><section class="hero panel"><div class="hero-content"><span class="pill">CCRA-GP 2026 · PROFESSIONAL TRAINING</span><h1>CERTIFIED CYBERSECURITY<br/><strong>RISK ASSESSMENT</strong><br/>&amp; GOVERNANCE PRACTITIONER</h1><div class="ribbon">PRACTICAL SKILLS. REAL BUSINESS SCENARIOS. GLOBAL STANDARDS.</div><p>Build the skills to assess cybersecurity risk, select controls, develop remediation plans and communicate governance decisions across real-world business scenarios.</p><div class="hero-actions"><a class="button" href="#enrolment">Start your journey →</a><a class="button secondary" href="#overview">Explore programme</a></div></div><div class="hero-art"><img alt="CyFort Secure Everything" src="cyfort-logo.png"/></div></section>
@@ -64,4 +100,893 @@ const list=[...data.vulnerabilities].sort((a,b)=>String(b.dateAdded||'').localeC
 for(const v of list){const item=document.createElement('article');item.className='cyfort-kev-item';const title=document.createElement('b');title.textContent=(v.cveID||'CVE')+' · '+(v.vendorProject||'Unknown vendor');const desc=document.createElement('p');desc.textContent=v.vulnerabilityName||v.shortDescription||'Known exploited vulnerability';const meta=document.createElement('small');meta.textContent='Added to CISA catalog: '+(v.dateAdded||'unknown');const link=document.createElement('a');link.href='https://www.cve.org/CVERecord?id='+encodeURIComponent(v.cveID||'');link.target='_blank';link.rel='noopener noreferrer';link.textContent='View CVE record ↗';item.append(title,desc,meta,document.createElement('br'),link);feed.append(item)}
 status.textContent='Catalog: '+(data.dateReleased||'latest published')+' · Checked '+new Date().toLocaleTimeString();refresh.disabled=false;}
 refresh.addEventListener('click',update);update();setInterval(update,60*60*1000);
-})();</script><script src="labs-data.js"></script><script src="browser-labs.js"></script><script src="final-assessment-data.js"></script><script src="final-assessment.js"></script><script src="module-lab-links.js"></script></body></html>
+})();</script><script>
+window.CYFORT_LABS = [
+  {
+    "id": "identity",
+    "title": "Identity & Access Incident",
+    "category": "Entra ID / IAM",
+    "description": "Investigate suspicious sign-in, enforce MFA and document a response.",
+    "tasks": [
+      {
+        "command": "inspect signin",
+        "hint": "Review the simulated sign-in log.",
+        "points": 15
+      },
+      {
+        "command": "inspect user",
+        "hint": "Identify the affected account and risk.",
+        "points": 15
+      },
+      {
+        "command": "set mfa enforced",
+        "hint": "Apply an MFA enforcement decision.",
+        "points": 20
+      },
+      {
+        "command": "revoke sessions",
+        "hint": "Revoke active sessions.",
+        "points": 20
+      },
+      {
+        "command": "submit finding compromised account",
+        "hint": "Record your incident finding.",
+        "points": 30
+      }
+    ],
+    "responses": {
+      "inspect signin": "2026-10-12 02:17 UTC | user: analyst@cyfort.example | IP: 203.0.113.45 | location: unfamiliar | risk: HIGH | MFA: not satisfied",
+      "inspect user": "User: analyst@cyfort.example | privileged: yes | sign-in risk: HIGH | last password change: 64 days ago",
+      "set mfa enforced": "POLICY UPDATED (SIMULATED): MFA enforced for affected identity.",
+      "revoke sessions": "SESSIONS REVOKED (SIMULATED): active refresh tokens invalidated.",
+      "submit finding compromised account": "FINDING ACCEPTED: high-risk sign-in to a privileged account; account compromise suspected."
+    }
+  },
+  {
+    "id": "network",
+    "title": "Network Defence Lab",
+    "category": "SOC / Firewall",
+    "description": "Triage a suspicious network connection and create a containment rule.",
+    "tasks": [
+      {
+        "command": "show alerts",
+        "hint": "Inspect alerts from the simulated SIEM.",
+        "points": 15
+      },
+      {
+        "command": "inspect flow",
+        "hint": "Examine the suspicious flow.",
+        "points": 20
+      },
+      {
+        "command": "block ip 198.51.100.77",
+        "hint": "Contain the malicious source.",
+        "points": 25
+      },
+      {
+        "command": "submit finding command and control",
+        "hint": "Classify the activity.",
+        "points": 20
+      },
+      {
+        "command": "show report",
+        "hint": "Generate a short investigation report.",
+        "points": 20
+      }
+    ],
+    "responses": {
+      "show alerts": "ALERT-104 | Repeated outbound beacons | host: WS-24 | severity: HIGH | dest: 198.51.100.77",
+      "inspect flow": "WS-24 -> 198.51.100.77:443 | 60-second periodic interval | 12 sessions | abnormal outbound traffic",
+      "block ip 198.51.100.77": "FIREWALL RULE APPLIED (SIMULATED): outbound destination blocked.",
+      "submit finding command and control": "FINDING ACCEPTED: suspected command and control beaconing.",
+      "show report": "REPORT: Host WS-24 isolated from suspicious destination; escalate for endpoint investigation."
+    }
+  },
+  {
+    "id": "vuln",
+    "title": "Vulnerability & Risk Assessment",
+    "category": "NIST / CVSS",
+    "description": "Prioritise an exposed vulnerability and choose a defensible treatment.",
+    "tasks": [
+      {
+        "command": "scan assets",
+        "hint": "Discover the affected asset.",
+        "points": 15
+      },
+      {
+        "command": "inspect cve",
+        "hint": "Read vulnerability evidence.",
+        "points": 20
+      },
+      {
+        "command": "assess risk high",
+        "hint": "Set the risk rating.",
+        "points": 20
+      },
+      {
+        "command": "treat patch",
+        "hint": "Choose a risk treatment.",
+        "points": 25
+      },
+      {
+        "command": "submit finding internet exposure",
+        "hint": "Explain the exposure.",
+        "points": 20
+      }
+    ],
+    "responses": {
+      "scan assets": "ASSET: WEB-01 | Internet-facing | Business criticality: HIGH | Owner: E-commerce Operations",
+      "inspect cve": "TRAINING FINDING: vulnerable web component | CVSS base score: 9.8 | exploitation: plausible | asset exposure: public",
+      "assess risk high": "RISK REGISTER UPDATED (SIMULATED): likelihood HIGH; impact HIGH; overall HIGH.",
+      "treat patch": "TREATMENT APPROVED (SIMULATED): urgent patch with change-control validation.",
+      "submit finding internet exposure": "FINDING ACCEPTED: internet exposure increases likelihood and urgency."
+    }
+  },
+  {
+    "id": "cloud",
+    "title": "Cloud Misconfiguration Lab",
+    "category": "Cloud / Data Protection",
+    "description": "Audit a public storage bucket and remediate excessive access.",
+    "tasks": [
+      {
+        "command": "list buckets",
+        "hint": "Inspect storage resources.",
+        "points": 15
+      },
+      {
+        "command": "inspect policy",
+        "hint": "Review public access permissions.",
+        "points": 20
+      },
+      {
+        "command": "disable public access",
+        "hint": "Remove unauthorised public access.",
+        "points": 25
+      },
+      {
+        "command": "enable logging",
+        "hint": "Improve detection and auditability.",
+        "points": 20
+      },
+      {
+        "command": "submit finding data exposure",
+        "hint": "Record the data security finding.",
+        "points": 20
+      }
+    ],
+    "responses": {
+      "list buckets": "STORAGE: cyfort-training-records | publicAccess: TRUE | encryption: TRUE | logging: FALSE",
+      "inspect policy": "POLICY: Principal '*' has object-read access. Contains synthetic customer training records.",
+      "disable public access": "ACCESS UPDATED (SIMULATED): public object access disabled.",
+      "enable logging": "AUDIT LOGGING ENABLED (SIMULATED): storage read events recorded.",
+      "submit finding data exposure": "FINDING ACCEPTED: public object access creates a data exposure risk."
+    }
+  }
+];
+
+</script><script>
+
+(()=>{'use strict';
+const root=document.getElementById('browser-labs'), labs=window.CYFORT_LABS||[];
+if(!root||!labs.length)return;
+const storageKey='cyfort-labs-demo-v1';
+let records={};try{records=JSON.parse(localStorage.getItem(storageKey)||'{}')||{}}catch{}
+let active=null,history=[];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){try{localStorage.setItem(storageKey,JSON.stringify(records))}catch{}}
+function rec(id){return records[id]||(records[id]={completed:[],attempts:0})}
+function score(l){return l.tasks.reduce((n,t)=>n+(rec(l.id).completed.includes(t.command)?t.points:0),0)}
+function renderTiles(){
+ root.innerHTML=`<div class="section-heading"><div><span class="eyebrow">INTERACTIVE BROWSER LABS</span><h2>CyFort virtual security workbench</h2><p>Practise investigation, control selection and risk decisions in a simulated command environment.</p></div></div>
+ <p class="lab-note">Self-contained educational simulators — not actual virtual machines or production systems. Scores are saved in this browser only and are not official certification records.</p>
+ <div class="lab-grid">${labs.map(l=>`<button type="button" class="lab-tile" data-lab="${esc(l.id)}"><small>${esc(l.category)}</small><strong>${esc(l.title)}</strong><span>${esc(l.description)}</span><p class="lab-status">${score(l)} / 100 points</p></button>`).join('')}</div>
+ <div id="lab-workbench" aria-live="polite"></div>`;
+ root.querySelectorAll('[data-lab]').forEach(b=>b.addEventListener('click',()=>openLab(b.dataset.lab)));
+}
+function log(s){history.push(s);history=history.slice(-45);const el=document.getElementById('lab-console');if(el){el.textContent=history.join('\n\n');el.scrollTop=el.scrollHeight}}
+function openLab(id){active=labs.find(l=>l.id===id);if(!active)return;history=[];
+ const w=document.getElementById('lab-workbench');
+ w.innerHTML=`<div class="lab-workspace"><div class="lab-bar"><div><strong>${esc(active.title)}</strong><div class="lab-note">${esc(active.category)}</div></div><div><span class="lab-score" id="lab-score">${score(active)} / 100</span> <span class="lab-status" id="lab-pass"></span></div></div>
+ <div class="lab-body"><div><div class="lab-console" id="lab-console" role="log" aria-label="Simulated security terminal"></div><form id="lab-form" class="lab-controls"><input id="lab-command" autocomplete="off" spellcheck="false" aria-label="Enter lab command" placeholder="Type help or a lab command" required><button type="submit">Run</button></form><div class="lab-actions"><button type="button" class="secondary" id="lab-help">Show commands</button><button type="button" class="secondary" id="lab-reset">Reset this lab</button><button type="button" class="secondary" id="lab-export">Export results</button></div></div>
+ <div><h3>Objectives & scoring</h3><p class="lab-note">${esc(active.description)}</p><ol class="lab-tasks" id="lab-tasks"></ol><p class="lab-note">Complete each objective using the exact training command. Each objective scores once. Pass mark: 80/100. A browser refresh preserves progress on this device.</p></div></div></div>`;
+ document.getElementById('lab-form').addEventListener('submit',e=>{e.preventDefault();const inp=document.getElementById('lab-command');run(inp.value);inp.value='';inp.focus()});
+ document.getElementById('lab-help').onclick=()=>run('help');
+ document.getElementById('lab-reset').onclick=()=>{if(confirm('Reset this lab score on this browser?')){records[active.id]={completed:[],attempts:0};save();openLab(active.id);renderScores()}};
+ document.getElementById('lab-export').onclick=()=>{const r=rec(active.id),payload={programme:'CyFort browser lab demonstration',lab:active.title,score:score(active),maxScore:100,passed:score(active)>=80,completedObjectives:r.completed,generatedAt:new Date().toISOString(),verification:'Unverified browser-local record; not a certificate'};const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));a.href=url;a.download=`cyfort-${active.id}-demo-results.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+ log('CYFORT TRAINING TERMINAL v1\nEnvironment: SIMULATED / ISOLATED\nNo external host, account, or cloud service is modified.\n\nType "help" to view training commands.');
+ updateTasks();w.scrollIntoView({behavior:'smooth',block:'nearest'});document.getElementById('lab-command').focus();
+}
+function renderScores(){root.querySelectorAll('[data-lab]').forEach(b=>{const l=labs.find(x=>x.id===b.dataset.lab);b.querySelector('.lab-status').textContent=`${score(l)} / 100 points`})}
+function updateTasks(){if(!active)return;const r=rec(active.id),s=score(active);document.getElementById('lab-score').textContent=`${s} / 100`;document.getElementById('lab-pass').textContent=s>=80?'PASS (DEMO)':'IN PROGRESS';document.getElementById('lab-tasks').innerHTML=active.tasks.map(t=>`<li class="${r.completed.includes(t.command)?'done':''}">${r.completed.includes(t.command)?'✓ ':'○ '}${esc(t.hint)} <strong>+${t.points}</strong><code>${esc(t.command)}</code></li>`).join('');renderScores()}
+function run(raw){if(!active)return;const cmd=raw.trim().toLowerCase().replace(/\s+/g,' ');if(!cmd)return;log('cyfort@lab:~$ '+cmd);if(cmd==='help'){log('AVAILABLE COMMANDS:\n'+active.tasks.map(t=>'  '+t.command).join('\n')+'\n  help\n  status\n  clear');return}if(cmd==='clear'){history=[];log('Terminal cleared.');return}if(cmd==='status'){log(`SCORE ${score(active)}/100 | PASS >=80 | COMPLETED ${rec(active.id).completed.length}/${active.tasks.length}`);return}
+ const task=active.tasks.find(t=>t.command===cmd);if(!task){log('Command not recognised in this training environment. Type help for available commands.');return}
+ const r=rec(active.id);r.attempts++;log(active.responses[cmd]||'Training action completed.');if(!r.completed.includes(cmd)){r.completed.push(cmd);log(`OBJECTIVE COMPLETE: +${task.points} points`)}else log('Objective already scored: +0 points');save();updateTasks();if(score(active)===100)log('ALL OBJECTIVES COMPLETED. Export your demonstration results if needed.');
+}
+renderTiles();
+})();
+
+</script><script>
+window.CYFORT_FINAL_QUESTIONS = [
+  {
+    "id": 1,
+    "module": 1,
+    "question": "What is the primary purpose of the Prepare step in NIST RMF?",
+    "options": [
+      "Retire the information system",
+      "Establish context, roles and risk management readiness",
+      "Deploy all technical safeguards",
+      "Authorize a system for operation"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 2,
+    "module": 1,
+    "question": "Which document typically defines an organization's willingness to accept risk?",
+    "options": [
+      "Penetration test log",
+      "Network topology diagram",
+      "Risk appetite statement",
+      "Asset inventory"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 3,
+    "module": 1,
+    "question": "Who normally owns the decision to accept residual organizational risk?",
+    "options": [
+      "An authorized risk decision-maker",
+      "An external auditor",
+      "A software vendor alone",
+      "Any end user"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 4,
+    "module": 1,
+    "question": "Why should stakeholders be identified early in a risk assessment?",
+    "options": [
+      "To guarantee zero risk",
+      "To eliminate the need for evidence",
+      "To clarify responsibilities and business impact",
+      "To avoid documenting assumptions"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 5,
+    "module": 1,
+    "question": "Which activity best establishes the scope of a cybersecurity assessment?",
+    "options": [
+      "Disable all third-party services",
+      "Define systems, boundaries and dependencies",
+      "Publish an incident report",
+      "Patch every endpoint immediately"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 6,
+    "module": 1,
+    "question": "Which input most helps align security activities with business needs?",
+    "options": [
+      "Screen resolution",
+      "Mission and business objectives",
+      "Printer configuration",
+      "Brand colors"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 7,
+    "module": 1,
+    "question": "What is a risk register used for?",
+    "options": [
+      "Tracking risks, owners, treatments and status",
+      "Storing passwords",
+      "Replacing audit evidence",
+      "Generating firewall packets"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 8,
+    "module": 2,
+    "question": "What does the Categorize step primarily determine?",
+    "options": [
+      "Employee performance ratings",
+      "Potential impact of information and system compromise",
+      "Annual marketing budget",
+      "Vendor advertising reach"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 9,
+    "module": 2,
+    "question": "Which security objective relates to preventing unauthorized disclosure?",
+    "options": [
+      "Confidentiality",
+      "Availability",
+      "Scalability",
+      "Portability"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 10,
+    "module": 2,
+    "question": "Which security objective relates to protecting data from unauthorized alteration?",
+    "options": [
+      "Usability",
+      "Integrity",
+      "Confidentiality",
+      "Latency"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 11,
+    "module": 2,
+    "question": "Which security objective concerns timely access to systems and information?",
+    "options": [
+      "Anonymity",
+      "Availability",
+      "Confidentiality",
+      "Nonrepudiation"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 12,
+    "module": 2,
+    "question": "A system holding sensitive patient records would require particular attention to which issue?",
+    "options": [
+      "Printer paper usage",
+      "Confidentiality and privacy impact",
+      "Website color scheme",
+      "Keyboard layout"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 13,
+    "module": 2,
+    "question": "Why are interconnected third-party services included in system categorization?",
+    "options": [
+      "They always eliminate risk",
+      "They remove the need for controls",
+      "They cannot affect operations",
+      "They can change exposure and business impact"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 14,
+    "module": 2,
+    "question": "What should be documented when making an impact determination?",
+    "options": [
+      "No evidence at all",
+      "A random numeric score",
+      "Rationale and supporting assumptions",
+      "Only the analyst's initials"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 15,
+    "module": 3,
+    "question": "What is the objective of the Select step?",
+    "options": [
+      "Conduct the final audit",
+      "Delete the asset register",
+      "Approve every residual risk",
+      "Choose and tailor security controls to identified needs"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 16,
+    "module": 3,
+    "question": "Which NIST publication is a widely used catalog of security and privacy controls?",
+    "options": [
+      "NIST SP 800-37 only",
+      "NIST SP 800-30",
+      "NIST SP 800-53",
+      "NIST CSF glossary only"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 17,
+    "module": 3,
+    "question": "What is a compensating control?",
+    "options": [
+      "An alternative safeguard that addresses a control objective",
+      "An unrelated administrative task",
+      "A control that removes accountability",
+      "A control with no evidence"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 18,
+    "module": 3,
+    "question": "Why should controls be tailored?",
+    "options": [
+      "To ensure every system has identical controls",
+      "To avoid all documentation",
+      "To reflect the system's risks, environment and requirements",
+      "To remove all monitoring"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 19,
+    "module": 3,
+    "question": "Which control most directly reduces unauthorized account access?",
+    "options": [
+      "A public shared password",
+      "An extra printer",
+      "Multi-factor authentication",
+      "A larger monitor"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 20,
+    "module": 3,
+    "question": "Which control most directly supports recovery from ransomware?",
+    "options": [
+      "Tested offline or protected backups",
+      "Disabling all logging",
+      "Removing patch management",
+      "Publishing credentials"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 21,
+    "module": 3,
+    "question": "What is the purpose of a control implementation plan?",
+    "options": [
+      "Avoid system ownership",
+      "Declare a breach impossible",
+      "Replace incident response",
+      "Document how selected controls will be deployed"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 22,
+    "module": 4,
+    "question": "What happens during the Implement step?",
+    "options": [
+      "Risk is automatically eliminated",
+      "Authorization is permanently granted",
+      "Selected controls are deployed and documented",
+      "The system is decommissioned"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 23,
+    "module": 4,
+    "question": "Which evidence best demonstrates MFA implementation?",
+    "options": [
+      "A marketing brochure",
+      "Configuration records and successful enforcement tests",
+      "A blank checklist",
+      "A verbal promise only"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 24,
+    "module": 4,
+    "question": "Why document control implementation details?",
+    "options": [
+      "To conceal system boundaries",
+      "To avoid change management",
+      "To support assessment, maintenance and accountability",
+      "To replace all training"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 25,
+    "module": 4,
+    "question": "What is a secure configuration baseline?",
+    "options": [
+      "A list of employee birthdays",
+      "A public password list",
+      "An approved reference configuration for systems",
+      "An untested software download"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 26,
+    "module": 4,
+    "question": "Which action helps reduce exposure from unused services?",
+    "options": [
+      "Disable or remove unnecessary services",
+      "Share administrator accounts",
+      "Turn off endpoint protection",
+      "Open additional ports"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 27,
+    "module": 4,
+    "question": "What should happen after a major security configuration change?",
+    "options": [
+      "Ignore potential service impact",
+      "Delete change records",
+      "Assume it is effective",
+      "Validate operation and record the change"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 28,
+    "module": 4,
+    "question": "Why is least privilege important?",
+    "options": [
+      "It eliminates identity management",
+      "It limits access to what users and processes need",
+      "It requires shared administrator credentials",
+      "It guarantees no insider threats"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 29,
+    "module": 5,
+    "question": "What is the Assess step intended to establish?",
+    "options": [
+      "Whether every vendor has the same price",
+      "Whether all employees use the same browser",
+      "Whether a logo is compliant",
+      "Whether controls are correctly implemented and effective"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 30,
+    "module": 5,
+    "question": "Which item is most useful as assessment evidence?",
+    "options": [
+      "An unsupported assurance",
+      "Repeatable test results and configuration records",
+      "An empty risk register",
+      "A social media comment"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 31,
+    "module": 5,
+    "question": "What should an assessor do when a control fails?",
+    "options": [
+      "Mark it passed without evidence",
+      "Delete the system owner",
+      "Record the finding and recommend remediation",
+      "Hide the result"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 32,
+    "module": 5,
+    "question": "What is the role of a plan of action and milestones (POA&M)?",
+    "options": [
+      "Grant permanent authorization",
+      "Store encryption keys in plain text",
+      "Track remediation actions, owners and deadlines",
+      "Replace an incident log"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 33,
+    "module": 5,
+    "question": "Which method can verify that a firewall rule blocks prohibited traffic?",
+    "options": [
+      "Changing the desktop wallpaper",
+      "Ignoring network telemetry",
+      "Reading a sales brochure",
+      "Controlled testing and log review"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 34,
+    "module": 5,
+    "question": "Why is independent assessment sometimes valuable?",
+    "options": [
+      "It removes all accountability",
+      "It reduces bias and increases confidence in findings",
+      "It replaces system documentation",
+      "It guarantees perfect security"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 35,
+    "module": 5,
+    "question": "Which outcome indicates a control is not operating as intended?",
+    "options": [
+      "Configuration matches requirements",
+      "Evidence shows required protection is not achieved",
+      "Logs show expected enforcement",
+      "A test succeeds consistently"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 36,
+    "module": 6,
+    "question": "What is the central purpose of the Authorize step?",
+    "options": [
+      "Make a risk-informed decision about system operation",
+      "Purchase more devices",
+      "Write marketing copy",
+      "Automatically waive every security issue"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 37,
+    "module": 6,
+    "question": "What does residual risk mean?",
+    "options": [
+      "Risk that existed before any assessment",
+      "Risk with no owner",
+      "Risk that can never be documented",
+      "Risk remaining after safeguards and treatments"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 38,
+    "module": 6,
+    "question": "Who should be informed of significant unresolved security findings before authorization?",
+    "options": [
+      "Nobody",
+      "The designated authorizing official",
+      "Only the web designer",
+      "Only an unrelated supplier"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 39,
+    "module": 6,
+    "question": "What should support an authorization decision?",
+    "options": [
+      "A single unsupported opinion",
+      "An advertising campaign",
+      "Assessment results, risk information and remediation plans",
+      "A random score"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 40,
+    "module": 6,
+    "question": "What is a possible outcome of an authorization review?",
+    "options": [
+      "Automatic removal of all risks",
+      "Approval with conditions or denial",
+      "Guaranteed permanent approval",
+      "Deletion of all records"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 41,
+    "module": 6,
+    "question": "Why are authorization decisions time-sensitive?",
+    "options": [
+      "Controls never change",
+      "Threats, systems and risk conditions change",
+      "Monitoring is unnecessary",
+      "All risks expire at midnight"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 42,
+    "module": 6,
+    "question": "What does risk acceptance require?",
+    "options": [
+      "Accountable approval within defined authority",
+      "A default browser setting",
+      "An anonymous message",
+      "No documentation"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 43,
+    "module": 7,
+    "question": "What is the Monitor step designed to achieve?",
+    "options": [
+      "Maintain awareness of security posture and changing risk",
+      "Guarantee no incidents",
+      "Stop all security reviews",
+      "Replace system owners"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 44,
+    "module": 7,
+    "question": "Which data source is useful for continuous security monitoring?",
+    "options": [
+      "Security alerts, vulnerability scans and audit logs",
+      "Only website color settings",
+      "Only office attendance",
+      "Only advertising metrics"
+    ],
+    "correct": 0
+  },
+  {
+    "id": 45,
+    "module": 7,
+    "question": "Why should critical vulnerabilities be reassessed after remediation?",
+    "options": [
+      "To guarantee vendor compliance",
+      "To erase historical evidence",
+      "To avoid testing",
+      "To verify the fix and remaining exposure"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 46,
+    "module": 7,
+    "question": "What should trigger reassessment of third-party risk?",
+    "options": [
+      "A new office poster",
+      "Material supplier, service or threat changes",
+      "A routine lunch order",
+      "A keyboard replacement"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 47,
+    "module": 7,
+    "question": "Which metric can help evaluate incident response effectiveness?",
+    "options": [
+      "Number of wallpapers",
+      "Monitor brightness",
+      "Mean time to detect and respond",
+      "Total email signatures"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 48,
+    "module": 7,
+    "question": "What is the purpose of security event escalation?",
+    "options": [
+      "Remove accountability",
+      "Prevent all reporting",
+      "Delay containment",
+      "Ensure significant events receive timely response"
+    ],
+    "correct": 3
+  },
+  {
+    "id": 49,
+    "module": 7,
+    "question": "What should continuous monitoring results feed back into?",
+    "options": [
+      "Only marketing materials",
+      "Updated risk decisions and control improvements",
+      "A discarded spreadsheet",
+      "Unrelated payroll calculations"
+    ],
+    "correct": 1
+  },
+  {
+    "id": 50,
+    "module": 7,
+    "question": "Which statement best describes risk management?",
+    "options": [
+      "It is an ongoing, iterative process",
+      "It ends permanently after deployment",
+      "It requires no business context",
+      "It is only a technical scan"
+    ],
+    "correct": 0
+  }
+];
+
+</script><script>
+
+(()=>{'use strict';
+const root=document.getElementById('final-assessment'),q=window.CYFORT_FINAL_QUESTIONS||[];
+if(!root||q.length!==50)return;
+const key='cyfort-final-assessment-demo-v1';
+let state={answers:{},submitted:false,attempt:1};try{const old=JSON.parse(localStorage.getItem(key)||'null');if(old&&typeof old==='object'&&old.answers)state=old}catch{}
+const save=()=>{try{localStorage.setItem(key,JSON.stringify(state))}catch{}};
+const answered=()=>Object.keys(state.answers).filter(k=>state.answers[k]!==undefined).length;
+const correct=()=>q.filter(x=>Number(state.answers[x.id])===x.correct).length;
+function draw(){
+root.innerHTML=`<div class="section-heading"><div><span class="eyebrow">ASSESSMENT 08 · COMPREHENSIVE EXAM</span><h2>Final knowledge assessment</h2><p>50 multiple-choice questions across Prepare, Categorize, Select, Implement, Assess, Authorize and Monitor.</p></div></div>
+<div class="final-meta"><span>Questions: <b>50</b></span><span>Pass mark: <b>80% (40/50)</b></span><span>Answered: <b id="final-count">${answered()}/50</b></span><span>Attempt: <b>${state.attempt}</b></span></div>
+<p class="final-hint">Demonstration assessment: answers and results are stored locally in this browser. This is not authenticated or tamper-resistant grading and does not issue a certificate. Official pass rules, attempt limits and result recording must be implemented in the CyFort backend.</p>
+<form id="final-form">${q.map(x=>`<fieldset class="final-question"><legend>${x.id}. [Module ${x.module}] ${escapeHtml(x.question)}</legend>${x.options.map((a,j)=>`<label><input type="radio" name="question-${x.id}" value="${j}" ${Number(state.answers[x.id])===j?'checked':''} ${state.submitted?'disabled':''}><span>${escapeHtml(a)}</span></label>`).join('')}</fieldset>`).join('')}</form>
+<div class="final-actions"><button type="button" id="final-submit" ${state.submitted?'disabled':''}>Submit final assessment</button><button type="button" class="secondary" id="final-new">Start new attempt</button><button type="button" class="secondary" id="final-export" ${state.submitted?'':'disabled'}>Export results</button></div><div id="final-result" aria-live="polite"></div>`;
+root.querySelectorAll('input[type=radio]').forEach(el=>el.addEventListener('change',()=>{const id=Number(el.name.split('-')[1]);state.answers[id]=Number(el.value);save();document.getElementById('final-count').textContent=answered()+'/50'}));
+document.getElementById('final-submit').onclick=()=>{if(answered()!==50){document.getElementById('final-result').textContent=`Please answer all 50 questions before submitting. ${50-answered()} remaining.`;return}if(!confirm('Submit your final answers? This attempt cannot be edited afterward.'))return;state.submitted=true;save();draw()};
+document.getElementById('final-new').onclick=()=>{if(!confirm('Begin a new attempt? The previous local answers will be replaced.'))return;state={answers:{},submitted:false,attempt:state.attempt+1};save();draw()};
+document.getElementById('final-export').onclick=()=>{const payload={programme:'CyFort Academy',assessment:'Assessment 08 – 50 MCQs',attempt:state.attempt,correct:correct(),total:50,percent:correct()*2,passed:correct()>=40,createdAt:new Date().toISOString(),verification:'Browser-only demonstration, not official certification evidence'};const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='cyfort-assessment-08-demo-result.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+if(state.submitted){const n=correct();document.getElementById('final-result').innerHTML=`<div class="final-result"><strong>${n>=40?'PASS':'NOT PASSED'} — ${n}/50 (${n*2}%)</strong><p>Required: 40 correct answers (80%). This score is a local demonstration result and does not update the CyFort certification database.</p><p>${q.map(x=>Number(state.answers[x.id])!==x.correct?`Question ${x.id}: correct answer — ${escapeHtml(x.options[x.correct])}`:'').filter(Boolean).join('<br>')}</p></div>`}
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+draw();
+})();
+
+</script><script>
+/* CyFort module virtual-workstation routing.
+   Delegated listener works for module cards created later by app.js.
+   Routes to existing browser simulations; does not create real VMs. */
+(()=>{
+  'use strict';
+  const labByModule={1:'identity',2:'vuln',3:'vuln',4:'network',5:'network',6:'cloud',7:'cloud'};
+  function launch(moduleNumber){
+    const id=labByModule[moduleNumber];
+    if(!id)return false;
+    const section=document.getElementById('browser-labs');
+    const tile=section?.querySelector('[data-lab="'+id+'"]');
+    if(!tile)return false;
+    location.hash='browser-labs';
+    tile.click();
+    return true;
+  }
+  document.addEventListener('click',event=>{
+    const element=event.target.closest('a,button,[role="button"]');
+    if(!element || element.closest('#browser-labs'))return;
+    const label=(element.textContent||'').replace(/\s+/g,' ').trim();
+    const match=label.match(/launch\s+module\s*(\d+)\s+virtual\s+workstation/i);
+    if(!match)return;
+    const n=Number(match[1]);
+    if(!labByModule[n])return;
+    // Prevent broken/placeholder links and direct the learner to the appropriate lab.
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if(!launch(n))alert('The browser lab is not loaded. Check that browser-labs.js and labs-data.js are present.');
+  },true);
+})();
+
+</script><script>
+(()=>{
+  'use strict';
+  function updateModuleEight(){
+    const container=document.getElementById('moduleCards');
+    if(!container)return;
+    for(const card of container.children){
+      if(card.dataset.cyfortFinalConverted==='yes')continue;
+      const heading=card.querySelector('h3,h4,strong,b');
+      if(!heading || !/^module\s*8\s*[:–-]/i.test(heading.textContent.trim()))continue;
+      card.dataset.cyfortFinalConverted='yes';
+      heading.textContent='Assessment 08: Comprehensive Final Examination';
+      const desc=card.querySelector('p');
+      if(desc)desc.textContent='50 multiple-choice questions across all seven learning modules. Pass mark: 80% (40/50).';
+      const buttons=[...card.querySelectorAll('a,button')];
+      buttons.forEach((b,i)=>{if(i===0){b.textContent='Open Assessment 08';if(b.tagName==='A')b.href='#final-assessment';else b.addEventListener('click',()=>location.hash='final-assessment',true)}else b.remove()});
+      if(!buttons.length){const a=document.createElement('a');a.href='#final-assessment';a.className='button';a.textContent='Open Assessment 08';card.appendChild(a)}
+    }
+  }
+  const cards=document.getElementById('moduleCards');
+  if(cards){updateModuleEight();new MutationObserver(updateModuleEight).observe(cards,{childList:true})}
+})();
+</script></body></html>
