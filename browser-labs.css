@@ -1,0 +1,18 @@
+
+#browser-labs .lab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin:18px 0}
+#browser-labs .lab-tile{background:#20252e;border:1px solid #444c5b;border-radius:10px;padding:16px;color:#f7f8fa;text-align:left;cursor:pointer;min-height:145px}
+#browser-labs .lab-tile:hover,#browser-labs .lab-tile:focus-visible{border-color:#fa324a;outline:2px solid transparent;background:#292e39}
+#browser-labs .lab-tile strong{display:block;font-size:17px;margin:8px 0}#browser-labs .lab-tile small{color:#bbc3d0}
+#browser-labs .lab-workspace{border:1px solid #444c5b;border-radius:12px;overflow:hidden;background:#111821}
+#browser-labs .lab-bar{background:#222935;padding:13px;display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+#browser-labs .lab-status{color:#b9e7c5;font-weight:700}#browser-labs .lab-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(240px,1fr);gap:12px;padding:14px}
+#browser-labs .lab-console{background:#060d13;color:#c4f6d2;border:1px solid #394456;border-radius:8px;min-height:310px;padding:13px;font:13px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow:auto;max-height:410px}
+#browser-labs .lab-controls{display:flex;gap:8px;margin-top:10px}#browser-labs .lab-controls input{flex:1;min-width:0;background:#111821;color:white;border:1px solid #5a6678;border-radius:6px;padding:12px;font-family:monospace}
+#browser-labs .lab-controls button,#browser-labs .lab-actions button{border:1px solid #a92a3a;border-radius:7px;padding:10px 14px;background:#c60020;color:white;cursor:pointer}
+#browser-labs .lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+#browser-labs .lab-actions button.secondary{background:#242c37;border-color:#596273}
+#browser-labs .lab-tasks{margin:0;padding:0;list-style:none}#browser-labs .lab-tasks li{padding:9px 0;border-bottom:1px solid #38404d;font-size:13px}
+#browser-labs .lab-tasks li.done{color:#9fe0ae}#browser-labs .lab-tasks code{display:block;color:#ff9aab;overflow-wrap:anywhere}
+#browser-labs .lab-score{font-size:25px;font-weight:800;color:white}
+#browser-labs .lab-note{color:#aeb8c7;font-size:13px}
+@media(max-width:800px){#browser-labs .lab-body{grid-template-columns:1fr}}
